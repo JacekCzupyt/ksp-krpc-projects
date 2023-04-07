@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReentryTest", "ReentryTest\ReentryTest.csproj", "{0B8F537C-094F-49F5-95A8-E4742FDE9373}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KspArmController", "..\KspTest2\KspArmController\KspArmController.csproj", "{5ECFFA47-9976-4D57-99A1-C994CB8437A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KspUtils", "KspUtils\KspUtils.csproj", "{F3AE0A8E-1891-4170-9608-D984105B926D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciseLanding", "PreciseLanding\PreciseLanding.csproj", "{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B8F537C-094F-49F5-95A8-E4742FDE9373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B8F537C-094F-49F5-95A8-E4742FDE9373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B8F537C-094F-49F5-95A8-E4742FDE9373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B8F537C-094F-49F5-95A8-E4742FDE9373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECFFA47-9976-4D57-99A1-C994CB8437A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECFFA47-9976-4D57-99A1-C994CB8437A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECFFA47-9976-4D57-99A1-C994CB8437A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECFFA47-9976-4D57-99A1-C994CB8437A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3AE0A8E-1891-4170-9608-D984105B926D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3AE0A8E-1891-4170-9608-D984105B926D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3AE0A8E-1891-4170-9608-D984105B926D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3AE0A8E-1891-4170-9608-D984105B926D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
