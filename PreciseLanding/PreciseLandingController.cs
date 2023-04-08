@@ -5,7 +5,7 @@ using Service = KRPC.Client.Services.SpaceCenter.Service;
 namespace PreciseLanding;
 
 using KRPC.Client;
-using KspUtils;
+using KspUtils.Sharp3D;
 
 public class PreciseLandingController {
     public Connection Connection { get; }

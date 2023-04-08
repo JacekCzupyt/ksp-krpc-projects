@@ -1,6 +1,6 @@
 ﻿using KRPC.Client;
 using KRPC.Client.Services.SpaceCenter;
-using KspUtils;
+using KspUtils.Sharp3D;
 using Sharp3D.Math.Core;
 
 namespace KspTest3;

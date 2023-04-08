@@ -1,6 +1,6 @@
 ﻿using Sharp3D.Math.Core;
 
-namespace KspUtils;
+namespace KspUtils.Sharp3D;
 
 public static class Util {
     public const double RadToAng = 180 / Math.PI;

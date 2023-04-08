@@ -4,6 +4,7 @@ using System.Diagnostics;
 using KRPC.Client;
 using KRPC.Client.Services.SpaceCenter;
 using KspTest3;
+using KspUtils.Sharp3D;
 using KspUtils;
 using Sharp3D.Math.Core;
 

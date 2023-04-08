@@ -1,7 +1,7 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Sharp3D.Math.Core;
+﻿using Sharp3D.Math.Core;
 
-namespace KspUtils {
+// ReSharper disable once CheckNamespace
+namespace KspUtils.Sharp3D {
     public static class MyExtensions {
 
         public static Vector3D ToVec3(this Vector2D vec) {
