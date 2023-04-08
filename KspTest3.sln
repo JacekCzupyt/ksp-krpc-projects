@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KspUtils", "KspUtils\KspUti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciseLanding", "PreciseLanding\PreciseLanding.csproj", "{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissileControl", "MissileControl\MissileControl.csproj", "{1CA81460-D69A-4FE4-9984-BC46D9E2ED1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C91A37B9-7A02-4F6C-AF3F-3AC1078669D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA81460-D69A-4FE4-9984-BC46D9E2ED1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA81460-D69A-4FE4-9984-BC46D9E2ED1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA81460-D69A-4FE4-9984-BC46D9E2ED1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA81460-D69A-4FE4-9984-BC46D9E2ED1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
