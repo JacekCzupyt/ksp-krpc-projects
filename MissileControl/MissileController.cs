@@ -1,6 +1,7 @@
 ﻿using KRPC.Client;
 using KRPC.Client.Services.KRPC;
 using KRPC.Client.Services.SpaceCenter;
+using KspUtils;
 using KspUtils.MathNet;
 using MathNet.Numerics;
 using MathNet.Spatial.Euclidean;
@@ -9,7 +10,7 @@ namespace MissileControl;
 
 public class MissileController {
     private const double KerbinSurfaceGravity = 9.81;
-    private readonly string[] FuelTypes = {"LiquidFuel", "Oxidizer"};
+    private readonly string[] FuelTypes = { "LiquidFuel", "Oxidizer" };
     private const double FuelMassMultiplier = 5;
 
     public enum FireMode {
@@ -24,8 +25,7 @@ public class MissileController {
     public ReferenceFrame Ref { get; }
 
     private Stream<Tuple<double, double, double>> targetPosStream, missilePosStream;
-    
-    
+
 
     public MissileController(Vessel missile, Vessel target, Connection conn, double throttle = 1) {
         Missile = missile;
@@ -48,20 +48,22 @@ public class MissileController {
             return;
 
         Missile.AutoPilot.ReferenceFrame = Missile.Orbit.Body.NonRotatingReferenceFrame;
-        Missile.AutoPilot.AttenuationAngle = new (0.4, 0.4, 0.4);
+        var tuner = new VesselAutoPilotTuner(Missile.AutoPilot, 0.2, 250, 0.2, interval: 10);
         Missile.AutoPilot.Engage();
+        tuner.Tune();
+        
+        
         bool active = false;
 
         while (Missile is not null) {
-            // Console.WriteLine($"\r{Missile.AutoPilot.Error:000.00}, {Missile.AngularVelocity(Missile.SurfaceReferenceFrame).ToVec().Length:000.00}");
-            if (!active && Missile.AutoPilot.Error < 1 && Missile.AngularVelocity(Ref).ToVec().Length < 1) {
+            Console.WriteLine((Missile.AutoPilot.Error, Missile.AngularVelocity(Ref).ToVec().Length));
+            if (!active && Missile.AutoPilot.Error < 3 && Missile.AngularVelocity(Ref).ToVec().Length < 20) {
                 active = true;
                 foreach(var engine in Missile.Parts.Engines) {
                     engine.Active = true;
-                    engine.GimbalLocked = true;
                 }
-                    
-                
+
+                tuner.StoppingTimeMultiplier = 250 + 400 * Throttle;
                 Missile.Control.Throttle = (float)Throttle;
             }
             TargetMissile();
@@ -69,17 +71,26 @@ public class MissileController {
         }
     }
 
+    private Vector3D? lastTickTargetVelocity = null;
+    private double? lastTickTime = null;
+
     double TargetMissile() {
         var refFrame = Missile.Orbit.Body.NonRotatingReferenceFrame;
-        var targetPosition = targetPosStream.Get().ToVec() - missilePosStream.Get().ToVec();
-        var targetVelocity = Target.Velocity(refFrame).ToVec() - Missile.Velocity(refFrame).ToVec();
-        var targetAcceleration = new Vector3D(); // TODO
+        var relativeTargetPosition = targetPosStream.Get().ToVec() - missilePosStream.Get().ToVec();
+        var relativeTargetVelocity = Target.Velocity(refFrame).ToVec() - Missile.Velocity(refFrame).ToVec();
+
+        var time = Missile.MET;
+
+        var targetAcceleration = (
+            (relativeTargetVelocity - lastTickTargetVelocity) / (time - lastTickTime) 
+            + Missile.Thrust * Missile.Direction(refFrame).ToVec() / Missile.Mass
+            ) ?? new Vector3D();
 
         var maxMissileAcceleration = Throttle * Missile.MaxVacuumThrust / Missile.Mass;
 
         var (desiredAcceleration, timeToTarget) = ComputeIntercept(
-            targetPosition,
-            targetVelocity,
+            relativeTargetPosition,
+            relativeTargetVelocity,
             targetAcceleration,
             maxMissileAcceleration
         );
@@ -87,9 +98,12 @@ public class MissileController {
         if (!desiredAcceleration.HasValue)
             return timeToTarget;
         
-        Console.Write($"{Missile.connection.KRPC().Paused, 6}, {targetPosition:0000.000}, {targetPosition.Length:0000.000}, {targetVelocity:000.000}, {targetVelocity.Length:000.000}\n");
-        // Console.Write($"{timeToTarget:00.000}, {desiredAcceleration.Value.Normalize()}, {targetPosition}, {targetVelocity}, {targetAcceleration}\n");
+        // Console.Write($"{timeToTarget:00.000}, {relativeTargetPosition.Length:0000.00}, {relativeTargetVelocity.Length:000.00}, {targetAcceleration.Length:000.000}\n");
         Missile.AutoPilot.TargetDirection = desiredAcceleration.Value.ToTuple();
+
+        lastTickTargetVelocity = relativeTargetVelocity;
+        lastTickTime = time;
+        
         return timeToTarget;
     }
 
@@ -111,7 +125,7 @@ public class MissileController {
         Vector3D targetAcceleration,
         double maxMissileAcceleration
     ) {
-        var equation = new Polynomial(-maxMissileAcceleration*maxMissileAcceleration);
+        var equation = new Polynomial(-maxMissileAcceleration * maxMissileAcceleration);
         for (int i = 0; i < 3; i++) {
             var axisPolynomial = new Polynomial(
                 targetAcceleration.ToVector()[i],

@@ -9,7 +9,7 @@ var center = conn.SpaceCenter();
 var missile = center.ActiveVessel;
 var target = center.TargetVessel;
 
-var missileController = new MissileController(missile, target, conn, throttle: 0.5);
+var missileController = new MissileController(missile, target, conn, throttle: 0.75);
 missileController.Fire();
 
 

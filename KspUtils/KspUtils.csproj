@@ -13,4 +13,10 @@
       <PackageReference Include="Sharp3D.Math" Version="1.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="KRPC.Client">
+        <HintPath>..\..\..\.nuget\packages\krpc.client\0.5.2\lib\net45\KRPC.Client.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
