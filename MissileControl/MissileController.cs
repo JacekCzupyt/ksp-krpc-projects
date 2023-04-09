@@ -48,12 +48,13 @@ public class MissileController {
             return;
 
         Missile.AutoPilot.ReferenceFrame = Missile.Orbit.Body.NonRotatingReferenceFrame;
+        Missile.AutoPilot.AttenuationAngle = new (0.4, 0.4, 0.4);
         Missile.AutoPilot.Engage();
         bool active = false;
 
         while (Missile is not null) {
             // Console.WriteLine($"\r{Missile.AutoPilot.Error:000.00}, {Missile.AngularVelocity(Missile.SurfaceReferenceFrame).ToVec().Length:000.00}");
-            if (!active && Missile.AutoPilot.Error < 1 && Missile.AngularVelocity(Missile.SurfaceReferenceFrame).ToVec().Length < 0.5) {
+            if (!active && Missile.AutoPilot.Error < 1 && Missile.AngularVelocity(Ref).ToVec().Length < 1) {
                 active = true;
                 foreach(var engine in Missile.Parts.Engines) {
                     engine.Active = true;
@@ -74,7 +75,7 @@ public class MissileController {
         var targetVelocity = Target.Velocity(refFrame).ToVec() - Missile.Velocity(refFrame).ToVec();
         var targetAcceleration = new Vector3D(); // TODO
 
-        var maxMissileAcceleration = Throttle * Missile.MaxThrust / Missile.Mass;
+        var maxMissileAcceleration = Throttle * Missile.MaxVacuumThrust / Missile.Mass;
 
         var (desiredAcceleration, timeToTarget) = ComputeIntercept(
             targetPosition,

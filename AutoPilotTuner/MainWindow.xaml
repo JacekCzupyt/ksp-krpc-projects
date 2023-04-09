@@ -1,0 +1,32 @@
+﻿<Window x:Class="AutoPilotTuner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoPilotTuner"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel Margin="10" VerticalAlignment="Center">
+        <DockPanel VerticalAlignment="Center" Margin="10">
+            <Label DockPanel.Dock="Left" FontWeight="Bold">TimeToPeak</Label>
+            <TextBox Text="{Binding ElementName=TimeToPeakSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
+            <Slider Maximum="5" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="False" Name="TimeToPeakSlider" ValueChanged="TimeToPeakSlider_OnValueChanged"/>
+        </DockPanel>
+        
+        <DockPanel VerticalAlignment="Center" Margin="10">
+            <Label DockPanel.Dock="Left" FontWeight="Bold">DecelerationTime</Label>
+            <TextBox Text="{Binding ElementName=DecelerationTimeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
+            <Slider Maximum="30" TickPlacement="BottomRight" TickFrequency="1" IsSnapToTickEnabled="False" Name="DecelerationTimeSlider" ValueChanged="DecelerationTimeSlider_OnValueChanged"/>
+        </DockPanel>
+        
+        <DockPanel VerticalAlignment="Center" Margin="10">
+            <Label DockPanel.Dock="Left" FontWeight="Bold">StoppingTime</Label>
+            <TextBox Text="{Binding ElementName=StoppingTimeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
+            <Slider Maximum="800" TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="False" Name="StoppingTimeSlider" ValueChanged="StoppingTimeSlider_OnValueChanged"/>
+        </DockPanel>
+        
+        <Button Click="ButtonBase_OnClick">ChangeRotation</Button>
+        
+        <TextBlock Name="ErrorValue" VerticalAlignment="Center" TextAlignment="Center">test</TextBlock>
+    </StackPanel>
+</Window>

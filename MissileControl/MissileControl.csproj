@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <PackageReference Include="Google.Protobuf" Version="3.22.1" />
-      <PackageReference Include="KRPC.Client" Version="0.4.8" />
+      <PackageReference Include="KRPC.Client" Version="0.5.2" />
       <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
       <PackageReference Include="MathNet.Spatial" Version="0.6.0" />
     </ItemGroup>
